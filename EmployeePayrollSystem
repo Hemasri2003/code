@@ -1,0 +1,59 @@
+import java.util.Scanner;
+
+public class EmployeePayrollSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Collect employee information
+        System.out.print("Enter employee name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter employee ID: ");
+        String employeeID = scanner.nextLine();
+
+        System.out.print("Enter hourly rate: $");
+        double hourlyRate = scanner.nextDouble();
+
+        System.out.print("Enter hours worked: ");
+        int hoursWorked = scanner.nextInt();
+
+        // Validate input
+        if (hourlyRate < 0 || hoursWorked < 0) {
+            System.out.println("Invalid input. Hourly rate and hours worked must be non-negative.");
+            return;
+        }
+
+        // Calculate payroll details
+        double grossPay = calculateGrossPay(hourlyRate, hoursWorked);
+
+        // tax deductions
+        double taxDeductions = calculateTaxDeductions(grossPay);
+
+        // net pay
+        double netPay = calculateNetPay(grossPay, taxDeductions);
+
+        // Printing Pay Stubs
+        System.out.println("--------Pay Subs-------");
+        System.out.println("Employee Name: "+name);
+        System.out.println("Employee ID: "+employeeID);
+        System.out.println("Hourly Rate: $"+ String.format("%2f", hourlyRate));
+        System.out.println("Hours Worked: $"+hoursWorked);
+        System.out.println("Gross Pay: $"+String.format("%2f", grossPay));
+        System.out.println("Tax Deductions: $"+String.format("%2f", taxDeductions));
+        System.out.println("Net pay: $"+String.format("%2f", netPay));
+        System.out.println("------------------------");
+    }
+
+    private static double calculateGrossPay(double hourlyRate, int hoursWorked) {
+        return hourlyRate * hoursWorked;
+    }
+
+    private static double calculateTaxDeductions(double grossPay) {
+        // Assume a fixed tax rate of 30%
+        return 0.3 * grossPay;
+    }
+
+    private static double calculateNetPay(double grossPay, double taxDeductions) {
+        return grossPay - taxDeductions;
+    }
+}
